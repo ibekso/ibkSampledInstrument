@@ -1,4 +1,8 @@
-# Prerequisites
+# Juce related
+/Builds/
+/JuceLibraryCode/
+
+# # Prerequisites
 *.d
 
 # Compiled Object files
