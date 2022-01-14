@@ -1,7 +1,9 @@
 /*
   ==============================================================================
 
-    This file contains the basic framework code for a JUCE plugin processor.
+    PluginProcessor.cpp
+ 
+    Copyright (C) 2022 Francois Decourcelle
 
   ==============================================================================
 */
@@ -22,6 +24,30 @@ IbkSampledInstrumentAudioProcessor::IbkSampledInstrumentAudioProcessor()
                        )
 #endif
 {
+    // Setup voices
+    for (int i = 0; i < mNumVoices; i++)
+    {
+        mSampledInstrument.addVoice (new juce::SamplerVoice());
+    }
+    
+    // Setup sampled sound
+    mSampledInstrument.clearSounds();
+    juce::WavAudioFormat wavFormat;
+    
+    std::unique_ptr<juce::AudioFormatReader> audioReader (wavFormat.createReaderFor (createSampleInputStream ("os_synth.wav").release(), true));
+    
+    juce::BigInteger allNotes;
+    allNotes.setRange (0, 128, true);
+    
+    mSampledInstrument.clearSounds();
+    mSampledInstrument.addSound (new juce::SamplerSound ("vox",         // name
+                                                         *audioReader,  // source
+                                                         allNotes,      // midi notes range
+                                                         74,            // root midi note
+                                                         0.1,           // attack time (sec)
+                                                         0.1,           // release time (sec)
+                                                         10.0           // maximum sample length (sec)
+                                                         ));
 }
 
 IbkSampledInstrumentAudioProcessor::~IbkSampledInstrumentAudioProcessor()
@@ -93,8 +119,7 @@ void IbkSampledInstrumentAudioProcessor::changeProgramName (int index, const juc
 //==============================================================================
 void IbkSampledInstrumentAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    mSampledInstrument.setCurrentPlaybackSampleRate (sampleRate);
 }
 
 void IbkSampledInstrumentAudioProcessor::releaseResources()
@@ -135,27 +160,10 @@ void IbkSampledInstrumentAudioProcessor::processBlock (juce::AudioBuffer<float>&
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
+    
+    mSampledInstrument.renderNextBlock (buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

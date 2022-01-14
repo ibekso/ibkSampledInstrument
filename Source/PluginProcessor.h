@@ -1,7 +1,9 @@
 /*
   ==============================================================================
 
-    This file contains the basic framework code for a JUCE plugin processor.
+    PluginProcessor.h
+ 
+    Copyright (C) 2022 Francois Decourcelle
 
   ==============================================================================
 */
@@ -52,8 +54,13 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    void loadFile();
 
 private:
+    juce::Synthesiser mSampledInstrument;
+    const int mNumVoices { 16 };
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (IbkSampledInstrumentAudioProcessor)
 };
