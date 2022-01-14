@@ -10,13 +10,17 @@
 
 #pragma once
 
-inline std::unique_ptr<juce::InputStream> createSampleInputStream (const char* resourcePath)
+inline std::unique_ptr<juce::InputStream> createSamplesInputStream (const char* resourcePath)
 {
-    auto assetsDir = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile("Samples");
-
-    auto resourceFile = assetsDir.getChildFile (resourcePath);
+    auto samplesDir = juce::File::getSpecialLocation (juce::File::commonApplicationDataDirectory)
+                        .getChildFile ("Application Support")
+                        .getChildFile ("Ibekso")
+                        .getChildFile ("ibkSampledInstrument")
+                        .getChildFile ("Samples");
+    
+    auto resourceFile = samplesDir.getChildFile (resourcePath);
+    
     jassert (resourceFile.existsAsFile());
 
     return resourceFile.createInputStream();
-
 }
