@@ -4,7 +4,7 @@
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
               jucerFormatVersion="1" pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" pluginManufacturer="Ibekso"
-              pluginManufacturerCode="Ibks" pluginCode="1201">
+              pluginManufacturerCode="Ibks" pluginCode="1201" defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="kifRRC" name="ibkSampledInstrument">
     <GROUP id="{7DF0BFA0-E0F9-5A80-0370-A04CC2E43A86}" name="Source">
       <FILE id="qJdetE" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -14,6 +14,9 @@
       <FILE id="c3v9Ne" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="eOra3i" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{3634E554-4936-A0CA-B6D9-5044D7FE88F2}" name="Utils">
+      <FILE id="MePxwM" name="UtilsFiles.h" compile="0" resource="0" file="Source/Utils/UtilsFiles.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

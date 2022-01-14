@@ -1,7 +1,9 @@
 /*
   ==============================================================================
 
-    This file contains the basic framework code for a JUCE plugin editor.
+    PluginEditor.h
+ 
+    Copyright (C) 2022 Francois Decourcelle
 
   ==============================================================================
 */
@@ -10,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "Utils/UtilsFiles.h"
 
 //==============================================================================
 /**
