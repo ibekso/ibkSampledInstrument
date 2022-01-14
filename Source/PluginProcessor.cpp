@@ -34,7 +34,7 @@ IbkSampledInstrumentAudioProcessor::IbkSampledInstrumentAudioProcessor()
     mSampledInstrument.clearSounds();
     juce::WavAudioFormat wavFormat;
     
-    std::unique_ptr<juce::AudioFormatReader> audioReader (wavFormat.createReaderFor (createSampleInputStream ("os_synth.wav").release(), true));
+    std::unique_ptr<juce::AudioFormatReader> audioReader (wavFormat.createReaderFor (createSamplesInputStream ("os_synth.wav").release(), true));
     
     juce::BigInteger allNotes;
     allNotes.setRange (0, 128, true);
