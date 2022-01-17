@@ -18,6 +18,9 @@
     <GROUP id="{3634E554-4936-A0CA-B6D9-5044D7FE88F2}" name="Utils">
       <FILE id="MePxwM" name="UtilsFiles.h" compile="0" resource="0" file="Source/Utils/UtilsFiles.h"/>
     </GROUP>
+    <GROUP id="{177B5231-629D-8193-29F5-3032B8CF6D1D}" name="Assets">
+      <FILE id="eEetZ9" name="ibksi.png" compile="0" resource="1" file="Assets/ibksi.png"/>
+    </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>

@@ -28,6 +28,7 @@ public:
     void resized() override;
 
 private:
+    juce::ImageComponent mImageComponentIbksi;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     IbkSampledInstrumentAudioProcessor& audioProcessor;
