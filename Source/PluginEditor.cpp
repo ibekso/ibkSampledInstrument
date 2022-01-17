@@ -15,7 +15,19 @@
 IbkSampledInstrumentAudioProcessorEditor::IbkSampledInstrumentAudioProcessorEditor (IbkSampledInstrumentAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    setSize (400, 300);
+    auto ibksi = juce::ImageCache::getFromMemory(BinaryData::ibksi_png , BinaryData::ibksi_pngSize);
+    
+    if (ibksi.isValid())
+    {
+        mImageComponentIbksi.setImage(ibksi, juce::RectanglePlacement::stretchToFit);
+    }
+    else{
+        jassert(ibksi.isValid());
+    }
+    
+    addAndMakeVisible(mImageComponentIbksi);
+    
+    setSize (982, 460);
 }
 
 IbkSampledInstrumentAudioProcessorEditor::~IbkSampledInstrumentAudioProcessorEditor()
@@ -25,12 +37,7 @@ IbkSampledInstrumentAudioProcessorEditor::~IbkSampledInstrumentAudioProcessorEdi
 //==============================================================================
 void IbkSampledInstrumentAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (juce::Colours::blueviolet);
-
-    g.setColour (juce::Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Ibekso Sampled Instrument", getLocalBounds(), juce::Justification::centred, 1);
+    mImageComponentIbksi.setBounds(0,0,982,460);
 }
 
 void IbkSampledInstrumentAudioProcessorEditor::resized()
